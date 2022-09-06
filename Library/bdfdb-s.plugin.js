@@ -11,8 +11,8 @@
 module.exports = (_ => {
 	if (window.BDFDB_Global && window.BDFDB_Global.PluginUtils && typeof window.BDFDB_Global.PluginUtils.cleanUp == "function") window.BDFDB_Global.PluginUtils.cleanUp(window.BDFDB_Global);
 	
-	var BDFDB, Internal, LibraryConstants, LibraryModules, LibraryRequires, DiscordObjects, PluginStores, shcbdfdb;
-	shcbdfdb = true
+	var BDFDB, Internal, LibraryConstants, LibraryModules, LibraryRequires, DiscordObjects, PluginStores;
+	window.shcbdfdb_Global = true
 	
 	BDFDB = {
 		started: true
