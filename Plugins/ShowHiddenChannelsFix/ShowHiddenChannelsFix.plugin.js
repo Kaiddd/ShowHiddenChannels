@@ -2,7 +2,7 @@
  * @name ShowHiddenChannelsFix
  * @author DevilBro | Kaid
  * @authorId 278543574059057154 | 865706845779918848
- * @version 3.2.8
+ * @version 3.2.9
  * @description Displays all hidden Channels, which can't be accessed due to Role Restrictions, this won't allow you to read them (impossible) | (Unpatched by Kaid#0001)
  * @source https://github.com/Kaiddd/ShowHiddenChannels/tree/master/Plugins/ShowHiddenChannelsFix/
  * @updateUrl https://Kaiddd.github.io/ShowHiddenChannels/Plugins/ShowHiddenChannelsFix/ShowHiddenChannelsFix.plugin.js
@@ -10,7 +10,9 @@
 
 module.exports = (_ => {
 	const changeLog = {
-		
+		"fixed": {
+			"Loading Issue Fix": "If this still occurs please DM Kaid#0001\nRestart discord if plugin doesn't work"
+		}
 	};
 
 	return (!window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started)) || !window.shcbdfdb_Global ? class {
@@ -37,7 +39,7 @@ module.exports = (_ => {
 		
 		load () {
 			if (!window.BDFDB_Global || !Array.isArray(window.BDFDB_Global.pluginQueue)) window.BDFDB_Global = Object.assign({}, window.BDFDB_Global, {pluginQueue: []});
-			if (!window.BDFDB_Global.downloadModal) {
+			if (!window.BDFDB_Global.downloadModal && !window.shcbdfdb_Global) {
 				window.BDFDB_Global.downloadModal = true;
 				BdApi.showConfirmationModal("Library Missing", `The Library Plugin needed for ${this.name} is missing. Please click "Download Now" to install it.`, {
 					confirmText: "Download Now",
@@ -217,6 +219,16 @@ module.exports = (_ => {
 			}
 			
 			onStart () {
+				function fixLoad() {
+					if (window.BDFDB_Global && (window.BDFDB_Global.loaded && window.BDFDB_Global.started) && window.shcbdfdb_Global && !window.shcbdfdb_Global.Started) {
+						window.shcbdfdb_Global.Started = true;
+						BDFDB.BDUtils.reloadPlugin("ShowHiddenChannelsFix.plugin");
+					}else {
+						setTimeout(fixLoad,2000);
+					}
+				}
+				fixLoad()
+				
 				this.saveBlackList(this.getBlackList());
 				
 				BDFDB.PatchUtils.patch(this, BDFDB.LibraryModules.GuildUtils, "setChannel", {instead: e => {
@@ -897,8 +909,4 @@ module.exports = (_ => {
 			}
 		};
 	})(window.BDFDB_Global.PluginUtils.buildPlugin(changeLog));
-	if (!window.shcbdfdb_Global.Started) {
-		window.shcbdfdb_Global.Started = true;
-		this.reload();
-	}
 })();
