@@ -2,7 +2,7 @@
  * @name bdfdb-s
  * @author DevilBro | Kaid
  * @authorId 278543574059057154 | 865706845779918848
- * @version 1.0.1
+ * @version 1.0.2
  * @description Required Library for DevilBro's ShowHiddenChannels
  * @source https://github.com/Kaiddd/ShowHiddenChannels/tree/master/Library/
  * @updateUrl https://Kaiddd.github.io/ShowHiddenChannels/Library/bdfdb-s.plugin.js
@@ -1104,7 +1104,7 @@ module.exports = (_ => {
 				else return newC[key] === undefined || newC[key][id] === undefined ? null : newC[key][id];
 			};
 			
-			const cssFileName = "0BDFDB.raw.css";
+			const cssFileName = "bdfdb-s.raw.css";
 			const dataFileName = "bdfdb-s.data.json";
 			const cssFilePath = path.join(BDFDB.BDUtils.getPluginsFolder(), cssFileName);
 			const dataFilePath = path.join(BDFDB.BDUtils.getPluginsFolder(), dataFileName);
