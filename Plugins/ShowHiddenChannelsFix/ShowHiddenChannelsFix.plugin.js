@@ -2,7 +2,7 @@
  * @name ShowHiddenChannelsFix
  * @author DevilBro | Kaid
  * @authorId 278543574059057154 | 865706845779918848
- * @version 3.2.7
+ * @version 3.2.8
  * @description Displays all hidden Channels, which can't be accessed due to Role Restrictions, this won't allow you to read them (impossible) | (Unpatched by Kaid#0001)
  * @source https://github.com/Kaiddd/ShowHiddenChannels/tree/master/Plugins/ShowHiddenChannelsFix/
  * @updateUrl https://Kaiddd.github.io/ShowHiddenChannels/Plugins/ShowHiddenChannelsFix/ShowHiddenChannelsFix.plugin.js
@@ -10,9 +10,7 @@
 
 module.exports = (_ => {
 	const changeLog = {
-		"fixed": {
-			"BD TOS": "BD TOS destroyed this plugin so I fixed it yay\nIf it fails to work, restart discord\n~Kaid#0001"
-		}
+		
 	};
 
 	return (!window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started)) || !window.shcbdfdb_Global ? class {
@@ -899,4 +897,8 @@ module.exports = (_ => {
 			}
 		};
 	})(window.BDFDB_Global.PluginUtils.buildPlugin(changeLog));
+	if (!window.shcbdfdb_Global.Started) {
+		window.shcbdfdb_Global.Started = true;
+		this.reload();
+	}
 })();
