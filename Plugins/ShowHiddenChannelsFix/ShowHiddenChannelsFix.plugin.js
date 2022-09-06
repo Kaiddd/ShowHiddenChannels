@@ -4,18 +4,18 @@
  * @authorId 278543574059057154 | 865706845779918848
  * @version 3.2.6
  * @description Displays all hidden Channels, which can't be accessed due to Role Restrictions, this won't allow you to read them (impossible) | (Unpatched by Kaid#0001)
- * @source https://github.com/mwittrien/BetterDiscordAddons/tree/master/Plugins/ShowHiddenChannels/
- * @updateUrl https://mwittrien.github.io/BetterDiscordAddons/Plugins/ShowHiddenChannels/ShowHiddenChannels.plugin.js
+ * @source https://github.com/Kaiddd/ShowHiddenChannels/tree/master/Plugins/ShowHiddenChannelsFix/
+ * @updateUrl https://Kaiddd.github.io/ShowHiddenChannels/Plugins/ShowHiddenChannelsFix/ShowHiddenChannelsFix.plugin.js
  */
 
 module.exports = (_ => {
 	const changeLog = {
 		"fixed": {
-			"BD TOS": "BD TOS destroyed this plugin so I fixed it yay\n~Kaid#0001"
+			"BD TOS": "BD TOS destroyed this plugin so I fixed it yay\nIf it fails to work, restart discord\n~Kaid#0001"
 		}
 	};
 
-	return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
+	return (!window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started)) || !window.shcbdfdb_Global ? class {
 		constructor (meta) {for (let key in meta) this[key] = meta[key];}
 		getName () {return this.name;}
 		getAuthor () {return this.author;}
@@ -23,10 +23,16 @@ module.exports = (_ => {
 		getDescription () {return `The Library Plugin needed for ${this.name} is missing. Open the Plugin Settings to download it. \n\n${this.description}`;}
 		
 		downloadLibrary () {
-			require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (e, r, b) => {
-				if (!e && b && r.statusCode == 200) require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), b, _ => BdApi.showToast("Finished downloading BDFDB Library", {type: "success"}));
-				else BdApi.alert("Error", "Could not download BDFDB Library Plugin. Try again later or download it manually from GitHub: https://mwittrien.github.io/downloader/?library");
+			require("request").get("https://Kaiddd.github.io/ShowHiddenChannels/Library/bdfdb-s.plugin.js", (e, r, b) => {
+				if (!e && b && r.statusCode == 200) require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "bdfdb-s.plugin.js"), b, _ => BdApi.showToast("Finished downloading BDFDBshc Library", {type: "success"}));
+				else BdApi.alert("Error", "Could not download BDFDBshc Library Plugin. Try again later or download it manually from GitHub: https://Kaiddd.github.io/ShowHiddenChannels/Library/bdfdb-s.plugin.js");
 			});
+			if (window.BDFDB_Global) {
+				require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (e, r, b) => {
+					if (!e && b && r.statusCode == 200) require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), b, _ => BdApi.showToast("Finished downloading BDFDB Library", {type: "success"}));
+					else BdApi.alert("Error", "Could not download BDFDB Library Plugin. Try again later or download it manually from GitHub: https://mwittrien.github.io/downloader/?library");
+				});
+			}
 		}
 		
 		load () {
@@ -202,7 +208,7 @@ module.exports = (_ => {
 				};
 				
 				this.css = `
-					${BDFDB.dotCNS._showhiddenchannelsaccessmodal + BDFDB.dotCN.messagespopoutemptyplaceholder} {
+					${".accessModal-w5HjsV " + BDFDB.dotCN.messagespopoutemptyplaceholder} {
 						position: absolute;
 						bottom: 0;
 						width: 100%;
@@ -413,7 +419,7 @@ module.exports = (_ => {
 			
 			processChannelItem (e) {
 				if (e.instance.props.channel && this.isChannelHidden(e.instance.props.channel.id)) {
-					if (!e.returnvalue) e.instance.props.className = BDFDB.DOMUtils.formatClassName(e.instance.props.className, BDFDB.disCN._showhiddenchannelshiddenchannel);
+					if (!e.returnvalue) e.instance.props.className = BDFDB.DOMUtils.formatClassName(e.instance.props.className, "hidden-9f2Dsa");
 					else {
 						let [children, index] = BDFDB.ReactUtils.findParent(e.returnvalue, {name: "ChannelItemIcon"});
 						let channelChildren = BDFDB.ReactUtils.findChild(e.returnvalue, {props: [["className", BDFDB.disCN.channelchildren]]});
@@ -566,7 +572,7 @@ module.exports = (_ => {
 					size: "MEDIUM",
 					header: BDFDB.LanguageUtils.LanguageStrings.CHANNEL + " " + BDFDB.LanguageUtils.LanguageStrings.ACCESSIBILITY,
 					subHeader: "#" + channel.name,
-					className: BDFDB.disCN._showhiddenchannelsaccessmodal,
+					className: "accessModal-w5HjsV",
 					contentClassName: BDFDB.DOMUtils.formatClassName(!isThread && BDFDB.disCN.listscroller),
 					onOpen: modalInstance => {if (modalInstance) accessModal = modalInstance;},
 					children: isThread ? infoStrings : [
