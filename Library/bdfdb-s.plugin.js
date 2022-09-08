@@ -2,7 +2,7 @@
  * @name bdfdb-s
  * @author DevilBro | Kaid
  * @authorId 278543574059057154 | 865706845779918848
- * @version 1.0.3
+ * @version 1.0.4
  * @description Required Library for DevilBro's ShowHiddenChannels
  * @source https://github.com/Kaiddd/ShowHiddenChannels/tree/master/Library/
  * @updateUrl https://Kaiddd.github.io/ShowHiddenChannels/Library/bdfdb-s.plugin.js
@@ -12,8 +12,6 @@ module.exports = (_ => {
 	if (window.BDFDBscf_Global && window.BDFDBscf_Global.PluginUtils && typeof window.BDFDBscf_Global.PluginUtils.cleanUp == "function") window.BDFDBscf_Global.PluginUtils.cleanUp(window.BDFDBscf_Global);
 	
 	var BDFDBscf, Internal, LibraryConstants, LibraryModules, LibraryRequires, DiscordObjects, PluginStores;
-	window.shcbdfdb_Global = true;
-	window.shcbdfdb_Global.Started = false;
 	
 	BDFDBscf = {
 		started: true
@@ -1104,7 +1102,8 @@ module.exports = (_ => {
 				else return newC[key] === undefined || newC[key][id] === undefined ? null : newC[key][id];
 			};
 			
-			const cssFileName = "0BDFDB.raw.css";
+			const cssFileName = "bdfdb-s.raw.css";
+			const oldCSSFileName = "0BDFDB.raw.css";
 			const dataFileName = "bdfdb-s.data.json";
 			const cssFilePath = path.join(BDFDBscf.BDUtils.getPluginsFolder(), cssFileName);
 			const dataFilePath = path.join(BDFDBscf.BDUtils.getPluginsFolder(), dataFileName);
@@ -1175,7 +1174,7 @@ module.exports = (_ => {
 				
 				const backupObj = getBackup(cssFileName, cssFilePath);
 				if (backupObj.backup && backupObj.hashIsSame) parseCSS(backupObj.backup);
-				else request.get(`https://mwittrien.github.io/BetterDiscordAddons/Library/_res/${cssFileName}`, (e, r, b) => {
+				else request.get(`https://mwittrien.github.io/BetterDiscordAddons/Library/_res/${oldCSSFileName}`, (e, r, b) => {
 					if ((e || !b || r.statusCode != 200) && tryAgain) return BDFDBscf.TimeUtils.timeout(_ => requestLibraryData(), 10000);
 					if (!e && b && r.statusCode == 200) {
 						if (backupObj.backup && backupObj.backup.replace(/\s/g, "") == b.replace(/\s/g, "")) {
