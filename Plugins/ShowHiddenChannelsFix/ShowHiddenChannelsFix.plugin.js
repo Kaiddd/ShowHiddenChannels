@@ -11,7 +11,6 @@
 module.exports = (_ => {
 	const changeLog = {
 		"fixed": {
-			"Library Prompts": "(Hopefully) Fixed those little library prompts that some users get (If not dm me, because I can't recreate the bug myself :sob:)",
 			"Code": "Lots of changes to the bdfdb-s library and fixed some errors and warnings wooh",
 			"Anti-Detection": "Small changes that may make it a teeny bit harder (not much) to detect the plugin from another plugin"
 		}
