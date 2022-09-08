@@ -2,7 +2,7 @@
  * @name bdfdb-s
  * @author DevilBro | Kaid
  * @authorId 278543574059057154 | 865706845779918848
- * @version 1.0.7
+ * @version 1.0.8
  * @description Required Library for DevilBro's ShowHiddenChannels
  * @source https://github.com/Kaiddd/ShowHiddenChannels/tree/master/Library/
  * @updateUrl https://Kaiddd.github.io/ShowHiddenChannels/Library/bdfdb-s.plugin.js
@@ -2493,9 +2493,9 @@ module.exports = (_ => {
 						if (DiscordObjects[item]) return DiscordObjects[item];
 						if (!InternalData.DiscordObjects[item]) return (function () {});
 						let defaultExport = InternalData.DiscordObjects[item].exported == undefined ? true : InternalData.DiscordObjects[item].exported;
-						if (InternalData.DiscordObjects[item].name) DiscordObjects[item] = BDFDB.ModuleUtils.findByName(InternalData.DiscordObjects[item].name, defaultExport);
-						else if (InternalData.DiscordObjects[item].props) DiscordObjects[item] = BDFDB.ModuleUtils.findByPrototypes(InternalData.DiscordObjects[item].props, defaultExport);
-						else if (InternalData.DiscordObjects[item].strings) DiscordObjects[item] = BDFDB.ModuleUtils.findByString(InternalData.DiscordObjects[item].strings, defaultExport);
+						if (InternalData.DiscordObjects[item].name) DiscordObjects[item] = BDFDBscf.ModuleUtils.findByName(InternalData.DiscordObjects[item].name, defaultExport);
+						else if (InternalData.DiscordObjects[item].props) DiscordObjects[item] = BDFDBscf.ModuleUtils.findByPrototypes(InternalData.DiscordObjects[item].props, defaultExport);
+						else if (InternalData.DiscordObjects[item].strings) DiscordObjects[item] = BDFDBscf.ModuleUtils.findByString(InternalData.DiscordObjects[item].strings, defaultExport);
 						if (InternalData.DiscordObjects[item].value) DiscordObjects[item] = (DiscordObjects[item] || {})[InternalData.DiscordObjects[item].value];
 						return DiscordObjects[item] ? DiscordObjects[item] : (function () {});
 					}
