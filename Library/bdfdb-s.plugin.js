@@ -2,7 +2,7 @@
  * @name bdfdb-s
  * @author DevilBro | Kaid
  * @authorId 278543574059057154 | 865706845779918848
- * @version 1.0.8
+ * @version 1.0.9
  * @description Required Library for DevilBro's ShowHiddenChannels
  * @source https://github.com/Kaiddd/ShowHiddenChannels/tree/master/Library/
  * @updateUrl https://Kaiddd.github.io/ShowHiddenChannels/Library/bdfdb-s.plugin.js
@@ -8148,6 +8148,9 @@ module.exports = (_ => {
 								return avatar;
 							}
 						}
+					};
+					
+					Internal._processAvatarMount = function (user, avatar, wrapper) {
 					};
 
 					Internal.processAccount = function (e) {
