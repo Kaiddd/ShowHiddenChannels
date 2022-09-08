@@ -2,7 +2,7 @@
  * @name ShowHiddenChannelsFix
  * @author DevilBro | Kaid
  * @authorId 278543574059057154 | 865706845779918848
- * @version 3.3.1
+ * @version 3.3.2
  * @description Displays all hidden Channels, which can't be accessed due to Role Restrictions, this won't allow you to read them (impossible) | (Unpatched by Kaid#0001)
  * @source https://github.com/Kaiddd/ShowHiddenChannels/tree/master/Plugins/ShowHiddenChannelsFix/
  * @updateUrl https://Kaiddd.github.io/ShowHiddenChannels/Plugins/ShowHiddenChannelsFix/ShowHiddenChannelsFix.plugin.js
@@ -11,11 +11,12 @@
 module.exports = (_ => {
 	const changeLog = {
 		"fixed": {
-			"Big Fixes": "If anything is still broken dm me Kaid#0001"
+			"Library downloading": "No longer prompts to download the original library as now this plugin fully works without it",
+			"Code": "Removed unused variable woooh"
 		}
 	};
 
-	return (!window.BDFDBscf_Global || (!window.BDFDBscf_Global.loaded && !window.BDFDBscf_Global.started)) || !window.shcbdfdb_Global ? class {
+	return (!window.BDFDBscf_Global || (!window.BDFDBscf_Global.loaded && !window.BDFDBscf_Global.started)) ? class {
 		constructor (meta) {for (let key in meta) this[key] = meta[key];}
 		getName () {return this.name;}
 		getAuthor () {return this.author;}
@@ -24,12 +25,8 @@ module.exports = (_ => {
 		
 		downloadLibrary () {
 			require("request").get("https://Kaiddd.github.io/ShowHiddenChannels/Library/bdfdb-s.plugin.js", (e, r, b) => {
-				if (!e && b && r.statusCode == 200) require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "bdfdb-s.plugin.js"), b, _ => BdApi.showToast("Finished downloading BDFDBshc Library", {type: "success"}));
+				if (!e && b && r.statusCode == 200) require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "bdfdb-s.plugin.js"), b, _ => BdApi.showToast("Finished downloading bdfdb-s Library", {type: "success"}));
 				else BdApi.alert("Error", "Could not download BDFDBshc Library Plugin. Try again later or download it manually from GitHub: https://Kaiddd.github.io/ShowHiddenChannels/Library/bdfdb-s.plugin.js");
-			});
-			require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (e, r, b) => {
-				if (!e && b && r.statusCode == 200) require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), b, _ => BdApi.showToast("Finished downloading BDFDB Library", {type: "success"}));
-				else BdApi.alert("Error", "Could not download BDFDB Library Plugin. Try again later or download it manually from GitHub: https://mwittrien.github.io/downloader/?library");
 			});
 		}
 		
