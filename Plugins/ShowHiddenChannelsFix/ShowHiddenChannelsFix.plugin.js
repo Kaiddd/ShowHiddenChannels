@@ -2,7 +2,7 @@
  * @name ShowHiddenChannelsFix
  * @author DevilBro | Kaid
  * @authorId 278543574059057154 | 865706845779918848
- * @version 3.3.2
+ * @version 3.3.3
  * @description Displays all hidden Channels, which can't be accessed due to Role Restrictions, this won't allow you to read them (impossible) | (Unpatched by Kaid#0001)
  * @source https://github.com/Kaiddd/ShowHiddenChannels/tree/master/Plugins/ShowHiddenChannelsFix/
  * @updateUrl https://Kaiddd.github.io/ShowHiddenChannels/Plugins/ShowHiddenChannelsFix/ShowHiddenChannelsFix.plugin.js
@@ -11,8 +11,8 @@
 module.exports = (_ => {
 	const changeLog = {
 		"fixed": {
-			"Library downloading": "No longer prompts to download the original library as now this plugin fully works without it",
-			"Code": "Removed unused variable woooh"
+			"Library Prompts": "(Hopefully) Fixed those little library prompts that some users get (If not dm me, because I can't recreate the bug myself :sob:)",
+			"Code": "Lots of changes to the bdfdb-s library and fixed some errors and warnings wooh"
 		}
 	};
 
@@ -202,7 +202,7 @@ module.exports = (_ => {
 				};
 				
 				this.css = `
-					${".accessModal-w5HjsV " + BDFDBscf.dotCN.messagespopoutemptyplaceholder} {
+					${".accessModal-w4HjsV " + BDFDBscf.dotCN.messagespopoutemptyplaceholder} {
 						position: absolute;
 						bottom: 0;
 						width: 100%;
@@ -413,7 +413,7 @@ module.exports = (_ => {
 			
 			processChannelItem (e) {
 				if (e.instance.props.channel && this.isChannelHidden(e.instance.props.channel.id)) {
-					if (!e.returnvalue) e.instance.props.className = BDFDBscf.DOMUtils.formatClassName(e.instance.props.className, "hidden-9f2Dsa");
+					if (!e.returnvalue) e.instance.props.className = BDFDBscf.DOMUtils.formatClassName(e.instance.props.className, "hidden-1f2Dsa");
 					else {
 						let [children, index] = BDFDBscf.ReactUtils.findParent(e.returnvalue, {name: "ChannelItemIcon"});
 						let channelChildren = BDFDBscf.ReactUtils.findChild(e.returnvalue, {props: [["className", BDFDBscf.disCN.channelchildren]]});
@@ -566,7 +566,7 @@ module.exports = (_ => {
 					size: "MEDIUM",
 					header: BDFDBscf.LanguageUtils.LanguageStrings.CHANNEL + " " + BDFDBscf.LanguageUtils.LanguageStrings.ACCESSIBILITY,
 					subHeader: "#" + channel.name,
-					className: "accessModal-w5HjsV",
+					className: "accessModal-w4HjsV",
 					contentClassName: BDFDBscf.DOMUtils.formatClassName(!isThread && BDFDBscf.disCN.listscroller),
 					onOpen: modalInstance => {if (modalInstance) accessModal = modalInstance;},
 					children: isThread ? infoStrings : [
