@@ -2,7 +2,7 @@
  * @name bdfdb-s
  * @author DevilBro | Kaid
  * @authorId 278543574059057154 | 865706845779918848
- * @version 1.0.4
+ * @version 1.0.5
  * @description Required Library for DevilBro's ShowHiddenChannels
  * @source https://github.com/Kaiddd/ShowHiddenChannels/tree/master/Library/
  * @updateUrl https://Kaiddd.github.io/ShowHiddenChannels/Library/bdfdb-s.plugin.js
@@ -466,57 +466,37 @@ module.exports = (_ => {
 					}
 			};
 			BDFDBscf.BDUtils.isPluginEnabled = function (pluginName) {
-				if (!BdApi) return null;
-				else if (BdApi.Plugins && typeof BdApi.Plugins.isEnabled == "function") return BdApi.Plugins.isEnabled(pluginName);
-				else if (typeof BdApi.isPluginEnabled == "function") return BdApi.isPluginEnabled(pluginName);
+				if (BdApi && BdApi.Plugins && typeof BdApi.Plugins.isEnabled == "function") return BdApi.Plugins.isEnabled(pluginName);
 			};
 			BDFDBscf.BDUtils.reloadPlugin = function (pluginName) {
-				if (!BdApi) return;
-				else if (BdApi.Plugins && typeof BdApi.Plugins.reload == "function") BdApi.Plugins.reload(pluginName);
-				else if (window.pluginModule) window.pluginModule.reloadPlugin(pluginName);
+				if (BdApi && BdApi.Plugins && typeof BdApi.Plugins.reload == "function") BdApi.Plugins.reload(pluginName);
 			};
 			BDFDBscf.BDUtils.enablePlugin = function (pluginName) {
-				if (!BdApi) return;
-				else if (BdApi.Plugins && typeof BdApi.Plugins.enable == "function") BdApi.Plugins.enable(pluginName);
-				else if (window.pluginModule) window.pluginModule.startPlugin(pluginName);
+				if (BdApi && BdApi.Plugins && typeof BdApi.Plugins.enable == "function") BdApi.Plugins.enable(pluginName);
 			};
 			BDFDBscf.BDUtils.disablePlugin = function (pluginName) {
-				if (!BdApi) return;
-				else if (BdApi.Plugins && typeof BdApi.Plugins.disable == "function") BdApi.Plugins.disable(pluginName);
-				else if (window.pluginModule) window.pluginModule.stopPlugin(pluginName);
+				if (BdApi && BdApi.Plugins && typeof BdApi.Plugins.disable == "function") BdApi.Plugins.disable(pluginName);
 			};
 			BDFDBscf.BDUtils.getPlugin = function (pluginName, hasToBeEnabled = false, overHead = false) {
-				if (BdApi && !hasToBeEnabled || BDFDBscf.BDUtils.isPluginEnabled(pluginName)) {	
-					if (BdApi.Plugins && typeof BdApi.Plugins.get == "function") {
-						let plugin = BdApi.Plugins.get(pluginName);
-						if (!plugin) return null;
-						if (overHead) return plugin.filename && plugin.exports && plugin.instance ? plugin : {filename: Internal.LibraryRequires.fs.existsSync(Internal.LibraryRequires.path.join(BDFDBscf.BDUtils.getPluginsFolder(), `${pluginName}.plugin.js`)) ? `${pluginName}.plugin.js` : null, id: pluginName, name: pluginName, plugin: plugin};
-						else return plugin.filename && plugin.exports && plugin.instance ? plugin.instance : plugin;
-					}
-					else if (window.bdplugins) overHead ? window.bdplugins[pluginName] : (window.bdplugins[pluginName] || {}).plugin;
+				if (BdApi && !hasToBeEnabled || BDFDBscf.BDUtils.isPluginEnabled(pluginName) && BdApi.Plugins && typeof BdApi.Plugins.get == "function") {
+					let plugin = BdApi.Plugins.get(pluginName);
+					if (!plugin) return null;
+					if (overHead) return plugin.filename && plugin.exports && plugin.instance ? plugin : {filename: Internal.LibraryRequires.fs.existsSync(Internal.LibraryRequires.path.join(BDFDBscf.BDUtils.getPluginsFolder(), `${pluginName}.plugin.js`)) ? `${pluginName}.plugin.js` : null, id: pluginName, name: pluginName, plugin: plugin};
+					else return plugin.filename && plugin.exports && plugin.instance ? plugin.instance : plugin;
 				}
 				return null;
 			};
 			BDFDBscf.BDUtils.isThemeEnabled = function (themeName) {
-				if (!BdApi) return null;
-				else if (BdApi.Themes && typeof BdApi.Themes.isEnabled == "function") return BdApi.Themes.isEnabled(themeName);
-				else if (typeof BdApi.isThemeEnabled == "function") return BdApi.isThemeEnabled(themeName);
+				if (BdApi && BdApi.Themes && typeof BdApi.Themes.isEnabled == "function") return BdApi.Themes.isEnabled(themeName);
 			};
 			BDFDBscf.BDUtils.enableTheme = function (themeName) {
-				if (!BdApi) return;
-				else if (BdApi.Themes && typeof BdApi.Themes.enable == "function") BdApi.Themes.enable(themeName);
-				else if (window.themeModule) window.themeModule.enableTheme(themeName);
+				if (BdApi && BdApi.Themes && typeof BdApi.Themes.enable == "function") BdApi.Themes.enable(themeName);
 			};
 			BDFDBscf.BDUtils.disableTheme = function (themeName) {
-				if (!BdApi) return;
-				else if (BdApi.Themes && typeof BdApi.Themes.disable == "function") BdApi.Themes.disable(themeName);
-				else if (window.themeModule) window.themeModule.disableTheme(themeName);
+				if (BdApi && BdApi.Themes && typeof BdApi.Themes.disable == "function") BdApi.Themes.disable(themeName);
 			};
 			BDFDBscf.BDUtils.getTheme = function (themeName, hasToBeEnabled = false) {
-				if (BdApi && !hasToBeEnabled || BDFDBscf.BDUtils.isThemeEnabled(themeName)) {
-					if (BdApi.Themes && typeof BdApi.Themes.get == "function") return BdApi.Themes.get(themeName);
-					else if (window.bdthemes) window.bdthemes[themeName];
-				}
+				if (BdApi && !hasToBeEnabled || BDFDBscf.BDUtils.isThemeEnabled(themeName) && BdApi.Themes && typeof BdApi.Themes.get == "function") return BdApi.Themes.get(themeName);
 				return null;
 			};
 			BDFDBscf.BDUtils.settingsIds = {
@@ -565,7 +545,7 @@ module.exports = (_ => {
 					
 					BDFDBscf.PluginUtils.checkUpdate(plugin.name, url);
 					
-					if (plugin.changeLog && typeof plugin.getSettingsPanel != "function") plugin.getSettingsPanel = _ => BDFDBscf.PluginUtils.createSettingsPanel(plugin, {
+					if (plugin.changeLog && !BDFDBscf.ObjectUtils.isEmpty(plugin.changeLog) && typeof plugin.getSettingsPanel != "function") plugin.getSettingsPanel = _ => BDFDBscf.PluginUtils.createSettingsPanel(plugin, {
 						children: BDFDBscf.ReactUtils.createElement(Internal.LibraryComponents.MessagesPopoutComponents.EmptyStateBottom, {
 							msg: "No Settings available for this Plugin",
 							image: BDFDBscf.DiscordUtils.getTheme() == BDFDBscf.disCN.themelight ? "/assets/9b0d90147f7fab54f00dd193fe7f85cd.svg" : "/assets/308e587f3a68412f137f7317206e92c2.svg"
@@ -671,15 +651,7 @@ module.exports = (_ => {
 						let newName = (body.match(/"name"\s*:\s*"([^"]+)"/) || [])[1] || pluginName;
 						let newVersion = (body.match(/@version ([0-9]+\.[0-9]+\.[0-9]+)|['"]([0-9]+\.[0-9]+\.[0-9]+)['"]/i) || []).filter(n => n)[1];
 						if (!newVersion) return callback(null);
-						if (pluginName == newName && BDFDBscf.NumberUtils.getVersionDifference(newVersion, PluginStores.updateData.plugins[url].version) > 0.2) {
-							BDFDBscf.NotificationUtils.toast(BDFDBscf.LanguageUtils.LibraryStringsFormat("toast_plugin_force_updated", pluginName), {
-								type: "warning",
-								disableInteractions: true
-							});
-							BDFDBscf.PluginUtils.downloadUpdate(pluginName, url);
-							return callback(2);
-						}
-						else if (BDFDBscf.NumberUtils.compareVersions(newVersion, PluginStores.updateData.plugins[url].version)) {
+						if (BDFDBscf.NumberUtils.compareVersions(newVersion, PluginStores.updateData.plugins[url].version)) {
 							if (PluginStores.updateData.plugins[url]) PluginStores.updateData.plugins[url].outdated = true;
 							BDFDBscf.PluginUtils.showUpdateNotice(pluginName, url);
 							return callback(1);
@@ -881,52 +853,7 @@ module.exports = (_ => {
 					className: BDFDBscf.disCN.modalchangelogmodal,
 					contentClassName: BDFDBscf.disCNS.changelogcontainer + BDFDBscf.disCN.modalminicontent,
 					footerDirection: Internal.LibraryComponents.Flex.Direction.HORIZONTAL,
-					children: BDFDBscf.ReactUtils.elementToReact(BDFDBscf.DOMUtils.create(changeLogHTML)),
-					footerChildren: (plugin == BDFDBscf || plugin == this || PluginStores.loaded[plugin.name] && PluginStores.loaded[plugin.name] == plugin && plugin.author == "DevilBro") && BDFDBscf.ReactUtils.createElement("div", {
-						className: BDFDBscf.disCN.changelogfooter,
-						children: [{
-							href: "https://www.paypal.me/MircoWittrien",
-							name: "PayPal",
-							icon: "PAYPAL"
-						}, {
-							href: "https://www.patreon.com/MircoWittrien",
-							name: "Patreon",
-							icon: "PATREON"
-						}, {
-							name: BDFDBscf.LanguageUtils.LibraryStringsFormat("send", "Solana"),
-							icon: "PHANTOM",
-							onClick: _ => {
-								BDFDBscf.LibraryRequires.electron.clipboard.write({text: InternalData.mySolana});
-								BDFDBscf.NotificationUtils.toast(BDFDBscf.LanguageUtils.LibraryStringsFormat("clipboard_success", "Phantom Wallet Key"), {
-									type: "success"
-								});
-							}
-						}, {
-							name: BDFDBscf.LanguageUtils.LibraryStringsFormat("send", "Ethereum"),
-							icon: "METAMASK",
-							onClick: _ => {
-								BDFDBscf.LibraryRequires.electron.clipboard.write({text: InternalData.myEthereum});
-								BDFDBscf.NotificationUtils.toast(BDFDBscf.LanguageUtils.LibraryStringsFormat("clipboard_success", "MetaMask Wallet Key"), {
-									type: "success"
-								});
-							}
-						}].map(data => BDFDBscf.ReactUtils.createElement(data.href ? Internal.LibraryComponents.Anchor : Internal.LibraryComponents.Clickable, {
-							className: BDFDBscf.disCN.changelogsociallink,
-							href: data.href || "",
-							onClick: !data.onClick ? (_ => {}) : data.onClick,
-							children: BDFDBscf.ReactUtils.createElement(Internal.LibraryComponents.TooltipContainer, {
-								text: data.name,
-								children: BDFDBscf.ReactUtils.createElement(Internal.LibraryComponents.SvgIcon, {
-									name: Internal.LibraryComponents.SvgIcon.Names[data.icon],
-									width: 16,
-									height: 16
-								})
-							})
-						})).concat(BDFDBscf.ReactUtils.createElement(Internal.LibraryComponents.TextElement, {
-							size: Internal.LibraryComponents.TextElement.Sizes.SIZE_12,
-							children: BDFDBscf.LanguageUtils.LibraryStrings.donate_message
-						}))
-					})
+					children: BDFDBscf.ReactUtils.elementToReact(BDFDBscf.DOMUtils.create(changeLogHTML))
 				});
 			};
 			BDFDBscf.PluginUtils.addLoadingIcon = function (icon) {
@@ -8205,23 +8132,10 @@ module.exports = (_ => {
 							}
 						}}, {once: true});
 					};
-
-					const BDFDB_Patrons = Object.assign({}, InternalData.BDFDB_Patrons), BDFDB_Patron_Tiers = Object.assign({}, InternalData.BDFDB_Patron_Tiers);
+					
 					Internal._processAvatarRender = function (user, avatar, wrapper, className) {
 						if (BDFDBscf.ReactUtils.isValidElement(avatar) && BDFDBscf.ObjectUtils.is(user) && (avatar.props.className || "").indexOf(BDFDBscf.disCN.bdfdbbadgeavatar) == -1) {
-							let role = "", note = "", color, link, addBadge = Internal.settings.general.showSupportBadges;
-							if (BDFDB_Patrons[user.id] && BDFDB_Patrons[user.id].active) {
-								link = "https://www.patreon.com/MircoWittrien";
-								role = BDFDB_Patrons[user.id].text || (BDFDB_Patron_Tiers[BDFDB_Patrons[user.id].tier] || {}).text;
-								note = BDFDB_Patrons[user.id].text && (BDFDB_Patron_Tiers[BDFDB_Patrons[user.id].tier] || {}).text;
-								color = BDFDB_Patrons[user.id].color;
-								className = BDFDBscf.DOMUtils.formatClassName(avatar.props.className, className, addBadge && BDFDBscf.disCN.bdfdbhasbadge, BDFDBscf.disCN.bdfdbbadgeavatar, BDFDBscf.disCN.bdfdbsupporter, BDFDBscf.disCN[`bdfdbsupporter${BDFDB_Patrons[user.id].tier}`]);
-							}
-							else if (user.id == InternalData.myId) {
-								addBadge = true;
-								role = `Theme ${BDFDBscf.LanguageUtils.LibraryStrings.developer}`;
-								className = BDFDBscf.DOMUtils.formatClassName(avatar.props.className, className, BDFDBscf.disCN.bdfdbhasbadge, BDFDBscf.disCN.bdfdbbadgeavatar, BDFDBscf.disCN.bdfdbdev);
-							}
+							let role = "", note = "", color, link;
 							if (role) {
 								if (avatar.type == "img") avatar = BDFDBscf.ReactUtils.createElement(Internal.LibraryComponents.AvatarComponents.default, Object.assign({}, avatar.props, {
 									size: Internal.LibraryComponents.AvatarComponents.Sizes.SIZE_40
@@ -8232,46 +8146,11 @@ module.exports = (_ => {
 									children: [avatar]
 								};
 								avatar = BDFDBscf.ReactUtils.createElement("div", newProps);
-								if (addBadge) avatar.props.children.push(BDFDBscf.ReactUtils.createElement(Internal.LibraryComponents.TooltipContainer, {
-									text: role,
-									note: note,
-									tooltipConfig: {backgroundColor: color || ""},
-									onClick: link ? (_ => BDFDBscf.DiscordUtils.openLink(link)) : (_ => {}),
-									children: BDFDBscf.ReactUtils.createElement("div", {
-										className: BDFDBscf.disCN.bdfdbbadge,
-										"user-id": user.id
-									})
-								}));
 								return avatar;
 							}
 						}
 					};
-					Internal._processAvatarMount = function (user, avatar, wrapper) {
-						if (!user) return;
-						if (Node.prototype.isPrototypeOf(avatar) && (avatar.className || "").indexOf(BDFDBscf.disCN.bdfdbbadgeavatar) == -1) {
-							let role = "", note = "", color, link, addBadge = Internal.settings.general.showSupportBadges;
-							if (BDFDB_Patrons[user.id] && BDFDB_Patrons[user.id].active) {
-								link = "https://www.patreon.com/MircoWittrien";
-								role = BDFDB_Patrons[user.id].text || (BDFDB_Patron_Tiers[BDFDB_Patrons[user.id].tier] || {}).text;
-								note = BDFDB_Patrons[user.id].text && (BDFDB_Patron_Tiers[BDFDB_Patrons[user.id].tier] || {}).text;
-								color = BDFDB_Patrons[user.id].color;
-								avatar.className = BDFDBscf.DOMUtils.formatClassName(avatar.className, addBadge && BDFDBscf.disCN.bdfdbhasbadge, BDFDBscf.disCN.bdfdbbadgeavatar, BDFDBscf.disCN.bdfdbsupporter, BDFDBscf.disCN[`bdfdbsupporter${BDFDB_Patrons[user.id].tier}`]);
-							}
-							else if (user.id == InternalData.myId) {
-								addBadge = true;
-								role = `Theme ${BDFDBscf.LanguageUtils.LibraryStrings.developer}`;
-								avatar.className = BDFDBscf.DOMUtils.formatClassName(avatar.className, addBadge && BDFDBscf.disCN.bdfdbhasbadge, BDFDBscf.disCN.bdfdbbadgeavatar, BDFDBscf.disCN.bdfdbdev);
-							}
-							if (addBadge && role && !avatar.querySelector(BDFDBscf.dotCN.bdfdbbadge)) {
-								let badge = document.createElement("div");
-								badge.className = BDFDBscf.disCN.bdfdbbadge;
-								badge.setAttribute("user-id", user.id);
-								if (link) badge.addEventListener("click", _ => BDFDBscf.DiscordUtils.openLink(link));
-								badge.addEventListener("mouseenter", _ => BDFDBscf.TooltipUtils.create(badge, role, {position: "top", note: note, backgroundColor: color || ""}));
-								avatar.appendChild(badge);
-							}
-						}
-					};
+
 					Internal.processAccount = function (e) {
 						Internal._processAvatarMount(e.instance.props.currentUser, e.node.querySelector(BDFDBscf.dotCN.avatarwrapper), e.node);
 					};
@@ -8712,185 +8591,6 @@ module.exports = (_ => {
 				
 					const pluginQueue = window.BDFDBscf_Global && BDFDBscf.ArrayUtils.is(window.BDFDBscf_Global.pluginQueue) ? window.BDFDBscf_Global.pluginQueue : [];
 
-					if (BDFDBscf.UserUtils.me.id == InternalData.myId || BDFDBscf.UserUtils.me.id == "350635509275557888") {
-						BDFDBscf.DevUtils = {};
-						BDFDBscf.DevUtils.generateClassId = Internal.generateClassId;
-						BDFDBscf.DevUtils.findByIndex = function (index) {
-							return BDFDBscf.DevUtils.req.c[index];
-						};
-						BDFDBscf.DevUtils.findPropAny = function (...strings) {
-							window.t = {"$filter":(prop => [...strings].flat(10).filter(n => typeof n == "string").every(string => prop.toLowerCase().indexOf(string.toLowerCase()) > -1))};
-							for (let i in BDFDBscf.DevUtils.req.c) if (BDFDBscf.DevUtils.req.c.hasOwnProperty(i)) {
-								let m = BDFDBscf.DevUtils.req.c[i].exports;
-								if (m && typeof m == "object") for (let j in m) if (window.t.$filter(j)) window.t[j + "_" + i] = m;
-								if (m && typeof m == "object" && typeof m.default == "object") for (let j in m.default) if (window.t.$filter(j)) window.t[j + "_default_" + i] = m.default;
-							}
-							console.clear();
-							console.log(window.t);
-						};
-						BDFDBscf.DevUtils.findPropFunc = function (...strings) {
-							window.t = {"$filter":(prop => [...strings].flat(10).filter(n => typeof n == "string").every(string => prop.toLowerCase().indexOf(string.toLowerCase()) > -1))};
-							for (let i in BDFDBscf.DevUtils.req.c) if (BDFDBscf.DevUtils.req.c.hasOwnProperty(i)) {
-								let m = BDFDBscf.DevUtils.req.c[i].exports;
-								if (m && typeof m == "object") for (let j in m) if (window.t.$filter(j) && typeof m[j] != "string") window.t[j + "_" + i] = m;
-								if (m && typeof m == "object" && typeof m.default == "object") for (let j in m.default) if (window.t.$filter(j) && typeof m.default[j] != "string") window.t[j + "_default_" + i] = m.default;
-							}
-							console.clear();
-							console.log(window.t);
-						};
-						BDFDBscf.DevUtils.findPropStringLib = function (...strings) {
-							window.t = {"$filter":(prop => [...strings].flat(10).filter(n => typeof n == "string").every(string => prop.toLowerCase().indexOf(string.toLowerCase()) > -1))};
-							for (let i in BDFDBscf.DevUtils.req.c) if (BDFDBscf.DevUtils.req.c.hasOwnProperty(i)) {
-								let m = BDFDBscf.DevUtils.req.c[i].exports;
-								if (m && typeof m == "object") for (let j in m) if (window.t.$filter(j) && typeof m[j] == "string" && /^[A-z0-9]+\-[A-z0-9_-]{6}$/.test(m[j])) window.t[j + "_" + i] = m;
-								if (m && typeof m == "object" && typeof m.default == "object") for (let j in m.default) if (window.t.$filter(j) && typeof m.default[j] == "string" && /^[A-z0-9]+\-[A-z0-9_-]{6}$/.test(m.default[j])) window.t[j + "_default_" + i] = m.default;
-							}
-							console.clear();
-							console.log(window.t);
-						};
-						BDFDBscf.DevUtils.findNameAny = function (...strings) {
-							window.t = {"$filter":(m => [...strings].flat(10).filter(n => typeof n == "string").some(string => typeof m.displayName == "string" && m.displayName.toLowerCase().indexOf(string.toLowerCase()) > -1 || m.name == "string" && m.name.toLowerCase().indexOf(string.toLowerCase()) > -1))};
-							for (let i in BDFDBscf.DevUtils.req.c) if (BDFDBscf.DevUtils.req.c.hasOwnProperty(i)) {
-								let m = BDFDBscf.DevUtils.req.c[i].exports;
-								if (m && (typeof m == "object" || typeof m == "function") && window.t.$filter(m)) window.t[(m.displayName || m.name) + "_" + i] = m;
-								if (m && (typeof m == "object" || typeof m == "function") && m.default && (typeof m.default == "object" || typeof m.default == "function") && window.t.$filter(m.default)) window.t[(m.default.displayName || m.default.name) + "_" + i] = m.default;
-							}
-							console.clear();
-							console.log(window.t);
-						};
-						BDFDBscf.DevUtils.findCodeAny = function (...strings) {
-							window.t = {"$filter":(m => Internal.hasModuleStrings(m, strings, true))};
-							for (let i in BDFDBscf.DevUtils.req.c) if (BDFDBscf.DevUtils.req.c.hasOwnProperty(i)) {
-								let m = BDFDBscf.DevUtils.req.c[i].exports;
-								if (m && typeof m == "function" && window.t.$filter(m)) window.t["module_" + i] = {string: m.toString(), func: m};
-								if (m && m.__esModule) {
-									for (let j in m) if (m[j] && typeof m[j] == "function" && window.t.$filter(m[j])) window.t[j + "_module_" + i] = {string: m[j].toString(), func: m[j], module: m};
-									if (m.default && (typeof m.default == "object" || typeof m.default == "function")) for (let j in m.default) if (m.default[j] && typeof m.default[j] == "function" && window.t.$filter(m.default[j])) window.t[j + "_module_" + i + "_default"] = {string: m.default[j].toString(), func: m.default[j], module: m};
-								}
-							}
-							for (let i in BDFDBscf.DevUtils.req.m) if (typeof BDFDBscf.DevUtils.req.m[i] == "function" && window.t.$filter(BDFDBscf.DevUtils.req.m[i])) window.t["function_" + i] = {string: BDFDBscf.DevUtils.req.m[i].toString(), func: BDFDBscf.DevUtils.req.m[i]};
-							console.clear();
-							console.log(window.t);
-						};
-						BDFDBscf.DevUtils.getAllModules = function () {
-							window.t = {};
-							for (let i in BDFDBscf.DevUtils.req.c) if (BDFDBscf.DevUtils.req.c.hasOwnProperty(i)) {
-								let m = BDFDBscf.DevUtils.req.c[i].exports;
-								if (m && typeof m == "object") window.t[i] = m;
-							}
-							console.clear();
-							console.log(window.t);
-						};
-						BDFDBscf.DevUtils.getAllStringLibs = function () {
-							window.t = [];
-							for (let i in BDFDBscf.DevUtils.req.c) if (BDFDBscf.DevUtils.req.c.hasOwnProperty(i)) {
-								let m = BDFDBscf.DevUtils.req.c[i].exports;
-								if (m && typeof m == "object" && !BDFDBscf.ArrayUtils.is(m) && Object.keys(m).length) {
-									var string = true, stringlib = false;
-									for (let j in m) {
-										if (typeof m[j] != "string") string = false;
-										if (typeof m[j] == "string" && /^[A-z0-9]+\-[A-z0-9_-]{6}$/.test(m[j])) stringlib = true;
-									}
-									if (string && stringlib) window.t.push(m);
-								}
-								if (m && typeof m == "object" && m.default && typeof m.default == "object" && !BDFDBscf.ArrayUtils.is(m.default) && Object.keys(m.default).length) {
-									var string = true, stringlib = false;
-									for (let j in m.default) {
-										if (typeof m.default[j] != "string") string = false;
-										if (typeof m.default[j] == "string" && /^[A-z0-9]+\-[A-z0-9_-]{6}$/.test(m.default[j])) stringlib = true;
-									}
-									if (string && stringlib) window.t.push(m.default);
-								}
-							}
-							console.clear();
-							console.log(window.t);
-						};
-						BDFDBscf.DevUtils.listen = function (strings) {
-							strings = BDFDBscf.ArrayUtils.is(strings) ? strings : Array.from(arguments);
-							BDFDBscf.DevUtils.listenStop();
-							BDFDBscf.DevUtils.listen.p = BDFDBscf.PatchUtils.patch("WebpackSearch", BDFDBscf.ModuleUtils.findByProperties(strings), strings[0], {after: e => {
-								console.log(e);
-							}});
-						};
-						BDFDBscf.DevUtils.listenStop = function () {
-							if (typeof BDFDBscf.DevUtils.listen.p == "function") BDFDBscf.DevUtils.listen.p();
-						};
-						BDFDBscf.DevUtils.generateLanguageStrings = function (strings, config = {}) {
-							const language = config.language || "en";
-							const languages = BDFDBscf.ArrayUtils.removeCopies(BDFDBscf.ArrayUtils.is(config.languages) ? config.languages : ["en"].concat((Internal.LibraryModules.LanguageStore.languages || Internal.LibraryModules.LanguageStore._languages).filter(n => n.enabled).map(n => {
-								if (BDFDBscf.LanguageUtils.languages[n.code]) return n.code;
-								else {
-									const code = n.code.split("-")[0];
-									if (BDFDBscf.LanguageUtils.languages[code]) return code;
-								}
-							})).filter(n => n && !n.startsWith("en-") && !n.startsWith("$") && n != language)).sort();
-							let translations = {};
-							strings = BDFDBscf.ObjectUtils.sort(strings);
-							const stringKeys = Object.keys(strings);
-							translations[language] = BDFDBscf.ObjectUtils.toArray(strings);
-							let text = Object.keys(translations[language]).map(k => translations[language][k]).join("\n\n");
-							
-							let fails = 0, next = lang => {
-								if (!lang) {
-									let formatTranslation = (l, s, i) => {
-										l = l == "en" ? "default" : l;
-										return config.cached && config.cached[l] && config.cached[l][stringKeys[i]] || (translations[language][i][0] == translations[language][i][0].toUpperCase() ? Internal.LibraryModules.StringUtils.upperCaseFirstChar(s) : s);
-									};
-									let format = config.asObject ? ((l, isNotFirst) => {
-										return `${isNotFirst ? "," : ""}\n\t\t"${l == "en" ? "default" : l}": {${translations[l].map((s, i) => `\n\t\t\t"${stringKeys[i]}": "${formatTranslation(l, s, i)}"`).join(",")}\n\t\t}`;
-									}) : ((l, isNotFirst) => {
-										return `\n\t\t\t\t\t${l == "en" ? "default" : `case "${l}"`}:${l.length > 2 ? "\t" : "\t\t"}// ${BDFDBscf.LanguageUtils.languages[l].name}\n\t\t\t\t\t\treturn {${translations[l].map((s, i) => `\n\t\t\t\t\t\t\t${stringKeys[i]}:${"\t".repeat(10 - ((stringKeys[i].length + 2) / 4))}"${formatTranslation(l, s, i)}"`).join(",")}\n\t\t\t\t\t\t};`;
-									});
-									let result = Object.keys(translations).filter(n => n != "en").sort().map((l, i) => format(l, i)).join("");
-									if (translations.en) result += format("en", result ? 1 : 0);
-									BDFDBscf.NotificationUtils.toast("Translation copied to clipboard", {
-										type: "success"
-									});
-									Internal.LibraryRequires.electron.clipboard.write({text: result});
-								}
-								else {
-									const callback = translation => {
-										BDFDBscf.LogUtils.log(lang);
-										if (!translation) {
-											console.warn("No Translation");
-											fails++;
-											if (fails > 10) console.error("Skipped Language");
-											else languages.unshift(lang);
-										}
-										else {
-											fails = 0;
-											translations[lang] = translation.split("\n\n");
-										}
-										next(languages.shift());
-									};
-									Internal.LibraryRequires.request(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=${language}&tl=${lang}&dt=t&dj=1&source=input&q=${encodeURIComponent(text)}`, (error, response, result) => {
-										if (!error && result && response.statusCode == 200) {
-											try {callback(JSON.parse(result).sentences.map(n => n && n.trans).filter(n => n).join(""));}
-											catch (err) {callback("");}
-										}
-										else {
-											if (response.statusCode == 429) {
-												BDFDBscf.NotificationUtils.toast("Too many Requests", {
-													type: "danger"
-												});
-											}
-											else {
-												BDFDBscf.NotificationUtils.toast("Failed to translate Text", {
-													type: "danger"
-												});
-												callback("");
-											}
-										}
-									});
-								}
-							};
-							if (stringKeys.length) next(languages.shift());
-						};
-						BDFDBscf.DevUtils.req = Internal.getWebModuleReq();
-						
-						window.BDFDBscf = BDFDBscf;
-					}
-					
 					window.BDFDBscf = BDFDBscf;
 					
 					if (libraryCSS) BDFDBscf.DOMUtils.appendLocalStyle("BDFDBscf", libraryCSS.replace(/[\n\t\r]/g, "").replace(/\[REPLACE_CLASS_([A-z0-9_]+?)\]/g, (a, b) => BDFDBscf.dotCN[b]));
