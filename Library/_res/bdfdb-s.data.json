@@ -11,10 +11,9 @@
 		"Invite": {"props": ["getExpiresAt", "isExpired"]},
 		"Message": {"props": ["getReaction", "isEdited", "getChannelId"]},
 		"Messages": {"props": ["jumpToMessage", "hasAfterCached", "forEach"]},
-		"Relationship": {"strings": ["status", "mutualGuilds", "nickname"], "value": "Row"},
+		"Relationship": {"name": "FriendsStore", "exported": false, "value": "Row"},
 		"Timestamp": {"props": ["add", "dayOfYear", "hasAlignedHourOffset"]},
-		"Upload": {"strings": [".reactNativeFileIndex", ".NOT_STARTED", ".loaded", ".size"], "value": "CloudFileUpload"},
-		"User": {"strings": ["hasFlag", "isLocalBot", "isClaimed"], "value": "default"}
+		"User": {"strings": ["UserFlags", "hasFlag", "deserialize"]}
 	},
 	"LibraryModules": {
 		"AckUtils": {"props": ["localAck", "bulkAck"]},
