@@ -2,7 +2,7 @@
  * @name bdfdb-s
  * @author DevilBro | Kaid
  * @authorId 278543574059057154 | 865706845779918848
- * @version 1.1.2
+ * @version 1.1.3
  * @description Required Library for DevilBro's ShowHiddenChannels
  * @source https://github.com/Kaiddd/ShowHiddenChannels/tree/master/Library/
  * @updateUrl https://Kaiddd.github.io/ShowHiddenChannels/Library/bdfdb-s.plugin.js
@@ -3146,10 +3146,10 @@ module.exports = (_ => {
 				BDFDBscf.UserUtils.getStatusColor = function (status, useColor) {
 					status = typeof status == "string" ? status.toLowerCase() : null;
 					switch (status) {
-						case "online": return useColor ? BDFDBscf.DiscordConstants.Colors.STATUS_GREEN_600 : "var(--bdfdb-green)";
-						case "idle": return useColor ? BDFDBscf.DiscordConstants.Colors.STATUS_YELLOW : "var(--bdfdb-yellow)";
-						case "dnd": return useColor ? BDFDBscf.DiscordConstants.Colors.STATUS_RED : "var(--bdfdb-red)";
-						case "playing": return useColor ? BDFDBscf.DiscordConstants.Colors.BRAND : "var(--bdfdb-blurple)";
+						case "online": return useColor ? BDFDBscf.DiscordConstants.Colors.STATUS_GREEN_600 : "var(--bdfdbscf-green)";
+						case "idle": return useColor ? BDFDBscf.DiscordConstants.Colors.STATUS_YELLOW : "var(--bdfdbscf-yellow)";
+						case "dnd": return useColor ? BDFDBscf.DiscordConstants.Colors.STATUS_RED : "var(--bdfdbscf-red)";
+						case "playing": return useColor ? BDFDBscf.DiscordConstants.Colors.BRAND : "var(--bdfdbscf-blurple)";
 						case "listening": return BDFDBscf.DiscordConstants.Colors.SPOTIFY;
 						case "streaming": return BDFDBscf.DiscordConstants.Colors.TWITCH;
 						default: return BDFDBscf.DiscordConstants.Colors.STATUS_GREY;
@@ -6689,7 +6689,7 @@ module.exports = (_ => {
 								},
 								children: this.props.items.map(item => BDFDBscf.ReactUtils.createElement(Internal.LibraryComponents.Badges.TextBadge, {
 									className: BDFDBscf.disCN.inputlistitem,
-									color: "var(--bdfdb-blurple)",
+									color: "var(--bdfdbscf-blurple)",
 									style: {borderRadius: "3px"},
 									text: [
 										item,
@@ -6899,7 +6899,7 @@ module.exports = (_ => {
 											className: BDFDBscf.disCN.quickselectclick,
 											onClick: event => {
 												Internal.LibraryModules.ContextMenuUtils.openContextMenu(event, _ => BDFDBscf.ReactUtils.createElement(Internal.LibraryComponents.Menu, {
-													navId: "bdfdb-quickselect",
+													navId: "bdfdbscf-quickselect",
 													onClose: Internal.LibraryModules.ContextMenuUtils.closeContextMenu,
 													className: this.props.popoutClassName,
 													children: BDFDBscf.ContextMenuUtils.createItem(Internal.LibraryComponents.MenuItems.MenuGroup, {
