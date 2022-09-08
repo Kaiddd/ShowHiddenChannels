@@ -2,4 +2,6 @@ DevilBro removed ShowHiddenChannels to comply with BetterDiscord TOS, I am not p
 
 None of this plugin besides removing it's nuke auto updating, and in the future perhaps some fixes, is my work, this is all the work of DevilBro.
 
-See his original repo here: https://github.com/mwittrien/BetterDiscordAddons (Copyright (C) 2016-2022 Mirco Wittrien)
+See his original repo here: https://github.com/mwittrien/BetterDiscordAddons
+
+(Copyright (C) 2016-2022 Mirco Wittrien)
