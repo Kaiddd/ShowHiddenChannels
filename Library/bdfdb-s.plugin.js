@@ -2,7 +2,7 @@
  * @name bdfdb-s
  * @author DevilBro | Kaid
  * @authorId 278543574059057154 | 865706845779918848
- * @version 1.1.3
+ * @version 1.1.4
  * @description Required Library for DevilBro's ShowHiddenChannels
  * @source https://github.com/Kaiddd/ShowHiddenChannels/tree/master/Library/
  * @updateUrl https://Kaiddd.github.io/ShowHiddenChannels/Library/bdfdb-s.plugin.js
@@ -2348,7 +2348,7 @@ module.exports = (_ => {
 									
 									if (!module.BDFDBscf_patches || !module.BDFDBscf_patches[methodName]) return (methodName == "render" || methodName == "default") && data.returnValue === undefined ? null : data.returnValue;
 									let hasInsteadPatches = BDFDBscf.ObjectUtils.toArray(module.BDFDBscf_patches[methodName].instead).some(priorityObj => !BDFDBscf.ObjectUtils.isEmpty(priorityObj));
-									if (hasInsteadPatches) for (let priority in module.BDFDBscff_patches[methodName].instead) for (let id in BDFDBscf.ObjectUtils.sort(module.BDFDBscf_patches[methodName].instead[priority])) if (module.BDFDBscf_patches) {
+									if (hasInsteadPatches) for (let priority in module.BDFDBscf_patches[methodName].instead) for (let id in BDFDBscf.ObjectUtils.sort(module.BDFDBscf_patches[methodName].instead[priority])) if (module.BDFDBscf_patches) {
 										let tempReturn = BDFDBscf.TimeUtils.suppress(module.BDFDBscf_patches[methodName].instead[priority][id], `"instead" callback of ${methodName} in ${name}`, {name: module.BDFDBscf_patches[methodName].instead[priority][id].pluginName, version: module.BDFDBscf_patches[methodName].instead[priority][id].pluginVersion})(data);
 										if (tempReturn !== undefined) data.returnValue = tempReturn;
 									}
