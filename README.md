@@ -1,3 +1,5 @@
+**Since the discord update that broke every BD plugin, this hasn't been fixed, I am not sure when I will update this. For now, use JustOptimize's remake**
+
 DevilBro removed ShowHiddenChannels to comply with BetterDiscord TOS, I am not posting this plugin on BetterDiscord, nor do I have a personal relationship to maintain with BD, so I am just gonna re-release this! 
 
 (Adding this note now, know I do not have anything against BD or DevilBro, I simply disagree with how it was force updated, and am a fan of the plugin so I decided to maintain it)
